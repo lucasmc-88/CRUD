@@ -35,68 +35,43 @@
     <main class="container my-5">
         <section>
             <h1 class="display-3 text-center">Administrador de productos</h1>
-            <hr>
+            <hr />
             <form id="formProducto">
                 <div class="mb-3">
-                    <label for="codido" class="form-label">Correo electrónico</label>
-                    <input type="text" class="form-control" id="codigo" placeholder="123" maxlength="10" minlength="3" required>
+                    <label for="codigo" class="form-label">Código</label>
+                    <input type="text" class="form-control" id="codigo" placeholder="1234add" maxlength="10"
+                        minlength="1" required />
                     <div class="invalid-feedback">
-                        Debe Ingresar un codigo
-                    </div>
-                    <div class="valid-feedback">
-                        Esta correcto
+                        Debe ingresar un código alfanumerico
                     </div>
                 </div>
-
                 <div class="mb-3">
                     <label for="producto" class="form-label">Producto</label>
-                    <input type="text" class="form-control" id="producto" placeholder="ej: Airon Man" maxlength="10" minlength="3" required>
-                    <div class="invalid-feedback">
-                        Debe Ingresar un producto
-                    </div>
-                    <div class="valid-feedback">
-                        Esta correcto
-                    </div>
+                    <input type="text" class="form-control" id="producto" placeholder="ej: Iron Man" maxlength="20"
+                        required />
                 </div>
                 <div class="mb-3">
-                    <label for="descripcion" class="form-label">Descripción</label>
-                    <textarea class="form-control" id="descripcion" rows="3" maxlength="10" minlength="3" required></textarea>
-                    <div class="invalid-feedback">
-                        Debe Ingresar un descripcion
-                    </div>
-                    <div class="valid-feedback">
-                        Esta correcto
-                    </div>
+                    <label for="descripcion" class="form-label">Descripcion</label>
+                    <textarea class="form-control" id="descripcion" rows="3"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="cantidad" class="form-label">Cantidad</label>
-                    <input type="text" class="form-control" id="cantidad" placeholder="222" maxlength="10" minlength="3" required>
-                    <div class="invalid-feedback">
-                        Debe Ingresar un cantidad
-                    </div>
-                    <div class="valid-feedback">
-                        Esta correcto
-                    </div>
+                    <input type="text" class="form-control" id="cantidad" placeholder="2" maxlength="5" required />
                 </div>
                 <div class="mb-3">
-                    <label for="url" class="form-label">Url</label>
-                    <input type="text" class="form-control" id="url" placeholder="http://imagen.com">
-                    <div class="invalid-feedback">
-                        Debe Ingresar un url
-                    </div>
-                    <div class="valid-feedback">
-                        Esta correcto
-                    </div>
+                    <label for="URL" class="form-label">URL</label>
+                    <input type="text" class="form-control" id="URL" placeholder="http://imagen.com" maxlength="200"
+                        required />
                 </div>
                 <button class="btn btn-primary" type="submit">Guardar</button>
-            </form> 
+            </form>
             <div class="alert alert-danger my-3 d-none" role="alert" id="mjeAlerta">
-                Debe completar todos los campos
+                Debe completar todos los campos rqueridos
             </div>
         </section>
     </main>
     <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/admin.js"></script>
+    <script src="js/admin.js" type="module"></script>
 </body>
 
 </html>
