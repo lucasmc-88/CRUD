@@ -69,6 +69,35 @@
                 Debe completar todos los campos rqueridos
             </div>
         </section>
+        <section>
+            <h2 class="display-3 text-center">
+                Tabla de productos
+            </h2>
+            <hr>
+            <button class="btn btn-primary" id="btnNuevo">
+                Nuevo
+            </button>
+            <button class="btn btn-secondary" id="btnDatosPrueba">
+                Cargar Datos de prueba
+            </button>
+            <div class="table-responsive">
+                <table class="table my-5">
+                    <thead>
+                      <tr>
+                        <th scope="col">Cod.</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Url</th>
+                        <th scope="col">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tablaProducto">
+
+                    </tbody>
+                  </table>
+            </div>
+        </section>
     </main>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/admin.js" type="module"></script>

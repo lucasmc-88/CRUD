@@ -10,8 +10,11 @@ let campoCantidad = document.getElementById("cantidad");
 let campoUrl = document.getElementById("URL");
 let formularioProducto = document.querySelector('#formProducto');
 
+
 let productoExistente = false; // variable bandera
-let listaProductos = [];
+
+// si hay productos en local storage, quiero que se guarden en el array los productos
+let listaProductos = JSON.parse(localStorage.getItem("arrayProductoKey")) || [];
 
 
 
@@ -41,6 +44,10 @@ campoUrl.addEventListener("blur", () => {
 
 formularioProducto.addEventListener("submit", guardarProducto);
 
+// cargo los productos del localstorage en la lista
+
+ cargaInicial();
+
 // emieza la logica CRUD
 
 function guardarProducto(e) {
@@ -68,6 +75,7 @@ function guardarProducto(e) {
 }
 
 function crearProducto(){
+  // generar una funcion crearCodigUnico() que retorne codigo unico
   // crear objeto producto 
   let productoNuevo = new Producto(
     campoCodigo.value, 
@@ -81,6 +89,10 @@ function crearProducto(){
     console.log(listaProductos);
     // limpiar formulario
     limpiarFormulario();
+    // guardar el array en local storage
+    guardarLocalSorage();
+    //cargar los productos
+    crearFila(productoNuevo);
 }
 
 function limpiarFormulario() {
@@ -95,4 +107,31 @@ function limpiarFormulario() {
 
   //resetear la variable bandera o booleana para el caso de modificarProducto
   productoExistente = false;
+}
+
+function guardarLocalSorage() {
+  localStorage.setItem("arrayProductoKey", JSON.stringify(listaProductos));
+}
+
+function crearFila(producto){
+  let tablaProducto = document.querySelector('#tablaProducto');
+  tablaProducto.innerHTML += `<tr>
+  <th>${producto.codigo}</th>
+  <td>${producto.producto}</td>
+  <td>${producto.descripcion}</td>
+  <td>${producto.cantidad}</td>
+  <td>${producto.url}</td>
+  <td>
+    <button class="btn btn-warning">Editar</button>
+    <button class="btn btn-danger">Borrar</button>
+  </td>
+</tr>`
+
+}
+
+function cargaInicial(){
+  if (listaProductos.length > 0) {
+    //crear fila
+    listaProductos.forEach(itemProducto => { crearFila(itemProducto);});
+  } 
 }
