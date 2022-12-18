@@ -20,9 +20,9 @@ let listaProductos = JSON.parse(localStorage.getItem("arrayProductoKey")) || [];
 
 // asociar un evento a cada elemento
 
-campoCodigo.addEventListener("blur", () => {
+/*campoCodigo.addEventListener("blur", () => {
   campoRequerido(campoCodigo);
-});
+});*/
 
 campoProducto.addEventListener("blur", () => {
   campoRequerido(campoProducto);
@@ -76,9 +76,10 @@ function guardarProducto(e) {
 
 function crearProducto(){
   // generar una funcion crearCodigUnico() que retorne codigo unico
+  let codigoUnico = Math.floor(Math.random()*100);
   // crear objeto producto 
   let productoNuevo = new Producto(
-    campoCodigo.value, 
+    codigoUnico, 
     campoProducto.value, 
     campoDescripcion.value, 
     campoCantidad.value, 
@@ -91,6 +92,12 @@ function crearProducto(){
     limpiarFormulario();
     // guardar el array en local storage
     guardarLocalSorage();
+    // mostrar un cartel al usuario
+    Swal.fire(
+      'Producto creado!!',
+      'su producto se cargo correctamente!',
+      'success'
+    )
     //cargar los productos
     crearFila(productoNuevo);
 }
@@ -122,8 +129,8 @@ function crearFila(producto){
   <td>${producto.cantidad}</td>
   <td>${producto.url}</td>
   <td>
-    <button class="btn btn-warning">Editar</button>
-    <button class="btn btn-danger">Borrar</button>
+    <button class="btn btn-warning" onclick="prepararEdicionProducto('${producto.codigo}')">Editar</button>
+    <button class="btn btn-danger" onclick="borrarProducto('${producto.codigo}')>Borrar</button>
   </td>
 </tr>`
 
@@ -134,4 +141,78 @@ function cargaInicial(){
     //crear fila
     listaProductos.forEach(itemProducto => { crearFila(itemProducto);});
   } 
+}
+
+window.prepararEdicionProducto = function (codigo) {
+  console.log("desde editar");
+  console.log(codigo);
+  //buscar el producto en el array
+  let productoBuscado = listaProductos.find((itemProducto) => {
+    return itemProducto.codigo === parseInt(codigo);
+  });
+  console.log(productoBuscado);
+  //mostrar el producto en el formulario de Producto
+  campoCodigo.value = productoBuscado.codigo;
+  campoProducto.value = productoBuscado.producto;
+  campoDescripcion.value = productoBuscado.descripcion;
+  campoCantidad.value = productoBuscado.cantidad;
+  campoUrl.value = productoBuscado.url;
+
+  //cambiar la variable bandera productoExistente
+  productoExistente = true;
+};
+
+/*function modificarProducto(){
+  console.log('desde modificar');
+  // encontrar posicion del producto
+  let indiceProducto = listaProductos.findIndex((itemProducto)=> {
+    return itemProducto.codigo === parseInt(campoCodigo.value);
+  });
+  console.log(indiceProducto);
+}
+*/
+function modificarProducto() {
+  console.log("desde modificar producto");
+  Swal.fire({
+    title: "¿Seguro qué desea modificar este producto?",
+    text: "Esta acción no podra ser revertida!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Confirmar!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      //encontrar la posicion del elemento que quiero modificar dentro del array de productos
+      let indiceProducto = listaProductos.findIndex((itemProducto) => {
+        return itemProducto.codigo === parseInt(campoCodigo.value);
+      });
+
+      console.log(indiceProducto);
+      //modificar los valores dentro del elemento del array de productos
+      listaProductos[indiceProducto].producto = campoProducto.value;
+      listaProductos[indiceProducto].descripcion = campoDescripcion.value;
+      listaProductos[indiceProducto].cantidad = campoCantidad.value;
+      listaProductos[indiceProducto].url = campoUrl.value;
+
+      //actualizar el localStorage
+      guardarLocalSorage();
+      //actualizar la tabla
+      borrarTabla();
+      cargaInicial();
+      //mostrar cartel al usuario
+      Swal.fire(
+        "Producto modificado!",
+        "Su producto fue modificado correctamente",
+        "success"
+      );
+      //limpiar el formulario
+      limpiarFormulario();
+    }
+  });
+}
+
+function borrarTabla() {
+  let tablaProducto = document.querySelector("#tablaProducto");
+  tablaProducto.innerHTML = "";
 }

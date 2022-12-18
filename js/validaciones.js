@@ -52,7 +52,7 @@ export const validarURL = (input) => {
   //console.log(e);
   let alerta = document.querySelector("#mjeAlerta");
   if (
-    campoRequerido(campoCodigo) &&
+    //campoRequerido(campoCodigo) &&
     campoRequerido(campoProducto) &&
     campoRequerido(campoDescripcion) &&
     validarNumero(campoCantidad) &&
